@@ -19,6 +19,7 @@ En este caso, lo más factible es realizar un análisis inicial del dump con un 
 Comando utilizado:  
 `vol -f (path al dump) windows.info`  
 
+<img width="1229" height="352" alt="1" src="https://github.com/user-attachments/assets/753deb98-1102-45d0-a104-5773abe1b780" />
 
 
 **R:** `2021-04-30 17:52`
@@ -33,8 +34,6 @@ Comando utilizado:
 `Get-FileHash -Algorithm SHA256 (path al dump)`  
 Con esto obtenemos directamente el hash SHA256 del archivo de memoria.  
 
-
-
 **R:** `9DB01B1E7B19A3B2113BFB65E860FFFD7A1630BDF2B18613D206EBF2AA0EA172`
 
 -----
@@ -47,6 +46,7 @@ Comando utilizado:
 `vol -f (path al dump) windows.pslist | sls "brave"`  
 Es importante tener en cuenta que en la salida del plugin, el **primer identificador corresponde al PID** y el **segundo al PPID**, por lo que hay que interpretar correctamente ambos campos. 
 
+<img width="1287" height="55" alt="3" src="https://github.com/user-attachments/assets/f98849ad-d2c2-458f-aff7-0994c36cf1f1" />
 
 
 **R:** `4856`
@@ -61,6 +61,7 @@ Comando utilizado:
 `vol -f (path al dump) windows.netscan | sls "ESTABLISHED"`  
 De esta manera podemos contar la cantidad exacta de conexiones activas en ese instante.  
 
+<img width="1139" height="181" alt="4" src="https://github.com/user-attachments/assets/24b174f2-0095-41fc-b51f-c6f574ef5cfb" />
 
 
 **R:** `10`
@@ -70,8 +71,13 @@ De esta manera podemos contar la cantidad exacta de conexiones activas en ese in
 | Q5 | Which domain name does Chrome have an established network connection with? |  
 -
 
-Tomando como base la información de la pregunta anterior, podemos identificar la IP remota asociada a la conexión establecida de `chrome.exe` y posteriormente realizar un **Reverse DNS Lookup**. Este procedimiento permite consultar qué nombre de dominio está asociado a una IP específica. Para esto utilicé la página `dnschecker.org`, resolviendo así el dominio correspondiente a la conexión observada.  
+Tomando como base la información de la pregunta anterior, podemos identificar la IP remota asociada a la conexión establecida de `chrome.exe` y posteriormente realizar un **Reverse DNS Lookup**. Este procedimiento permite consultar qué nombre de dominio está asociado a una IP específica. 
 
+<img width="1028" height="244" alt="5" src="https://github.com/user-attachments/assets/222228dc-e227-4953-a2c6-b490a1b03151" />
+
+Para esto utilicé la página `dnschecker.org`, resolviendo así el dominio correspondiente a la conexión observada.  
+
+<img width="1499" height="626" alt="5 1" src="https://github.com/user-attachments/assets/4b6143f1-51bf-4aec-9ed0-21699dd3acf4" />
 
 
 **R:** `protonmail.ch`
@@ -87,6 +93,7 @@ Comando utilizado para el dump del proceso:
 Una vez extraído el proceso, calculamos el hash MD5 con PowerShell:  
 `Get-FileHash -Algorithm MD5 (path al dump del proceso)`  
 
+<img width="1258" height="209" alt="6" src="https://github.com/user-attachments/assets/54b5084f-327a-4026-a7d4-a52a7b96c67d" />
 
 
 **R:** `0B493D8E26F03CCD2060E0BE85F430AF`
@@ -98,6 +105,7 @@ Una vez extraído el proceso, calculamos el hash MD5 con PowerShell:
 
 Para identificar exactamente lo que solicita la pregunta, recurrimos a **HxD**, un editor hexadecimal muy útil para este tipo de validaciones puntuales. Navegamos directamente al offset `0x45BE876` y, una vez posicionados allí, leemos los 6 bytes indicados por la consigna.  
 
+<img width="1919" height="679" alt="7" src="https://github.com/user-attachments/assets/81883e68-d1f0-4e28-83dd-541e61875879" />
 
 
 **R:** `hacker`
@@ -111,6 +119,7 @@ En este caso utilizamos el plugin `windows.pstree`, ya que es la forma más clar
 Comando utilizado:  
 `vol -f (path al dump) windows.pstree`  
 
+<img width="1902" height="357" alt="8" src="https://github.com/user-attachments/assets/b22a8267-012e-46e7-83d9-8d852f226f14" />
 
 
 **R:** `2021-04-30 17:39`  
@@ -124,6 +133,7 @@ Aquí aplicamos el plugin `windows.cmdline`, que nos entrega los parámetros con
 Comando utilizado:  
 vol -f (path al dump) windows.cmdline | sls "notepad"`  
 
+<img width="1053" height="86" alt="9" src="https://github.com/user-attachments/assets/ea188541-f0ab-403f-9668-77c624ffced7" />
 
 
 **R:** `C:\Users\JOHNDO~1\AppData\Local\Temp\7zO4FB31F24\accountNum`
@@ -138,8 +148,8 @@ Para extraer esta información desde memoria utilizamos el plugin específico de
 `vol -f (path al dump) windows.registry.userassist | sls "brave"`  
 De esta manera filtramos el ruido del output y nos quedamos únicamente con la evidencia asociada a Brave.  
 
+<img width="1919" height="244" alt="10" src="https://github.com/user-attachments/assets/447472f8-644f-49e1-b290-a8a2011073ee" />
 
-<img width="1229" height="352" alt="1" src="https://github.com/user-attachments/assets/73ba0ec0-b07b-4d87-aa78-470eb8834ade" />
 
 **R:** `4`  
 
