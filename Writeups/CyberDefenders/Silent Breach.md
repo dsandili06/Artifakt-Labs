@@ -111,7 +111,7 @@ Al ejecutar el proceso de descifrado sobre los archivos encriptados, podemos cor
 
 *(Flag: visible al final del archivo IMF-Mission.pdf descifrado)*
 
-## 🛡️ Proceso de CTI (Cyber Threat Intelligence)
+## 🔬 Resumen del Proceso de Análisis
 
 ### 1. **Identificación del Artefacto Malicioso**
 
