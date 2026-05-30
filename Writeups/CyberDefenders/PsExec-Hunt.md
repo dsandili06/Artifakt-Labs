@@ -124,7 +124,7 @@ Para identificar el segundo objetivo del atacante, podemos filtrar directamente 
 **R:** `Marketing-PC`
 
 
-## 🛡️ Proceso de CTI (Cyber Threat Intelligence)
+## 🔬 Resumen del Proceso de Análisis
 
 ### 1. **Reconocimiento del Tráfico de Red**
 
