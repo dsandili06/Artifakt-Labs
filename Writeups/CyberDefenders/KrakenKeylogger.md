@@ -196,7 +196,7 @@ El filtro devuelve las entradas de sesión correspondientes al atacante, revelan
 
 -----
 
-## 🛡️ Proceso de CTI (Cyber Threat Intelligence)
+## 🔬 Resumen del Proceso de Análisis
 
 ### 1. **Vector de Comunicación Inicial**
 
