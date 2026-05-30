@@ -218,7 +218,7 @@ Retomando el análisis del `manifest.json`, entre los permisos declarados por la
 
 -----
 
-## 🛡️ Proceso de CTI (Cyber Threat Intelligence)
+## 🔬 Resumen del Proceso de Análisis
 
 ### 1. **Reconocimiento de la Extensión**
 
