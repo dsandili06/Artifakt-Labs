@@ -6,7 +6,7 @@
 **Objetivo**: Analizar la memoria para identificar procesos relevantes, conexiones activas al momento de la adquisición y reconstruir patrones de uso de aplicaciones por parte del usuario.  
 **Herramientas**: Volatility 3, CertUtil, HxD.  
 **Tácticas**: Execution | Discovery | Command and Control.  
-Este laboratorio de CyberDefenders corresponde a la categoría **Endpoint Forensics** y está orientado específicamente al análisis de memoria con Volatility 3, CertUtil y HxD. [web:49][web:35]
+Este laboratorio de CyberDefenders corresponde a la categoría **Endpoint Forensics** y está orientado específicamente al análisis de memoria con Volatility 3, CertUtil y HxD.
 
 ---
 
