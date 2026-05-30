@@ -156,7 +156,7 @@ De esta manera filtramos el ruido del output y nos quedamos únicamente con la e
 
 -----
 
-## 🛡️ Proceso de CTI (Cyber Threat Intelligence)
+## 🔬 Resumen del Proceso de Análisis
 
 ### 1. **Validación inicial de la evidencia**
 ```text
