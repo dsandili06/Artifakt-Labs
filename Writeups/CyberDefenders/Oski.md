@@ -116,7 +116,7 @@ Acá la respuesta es 5 segundos teniendo en cuenta la observación de la respues
 
 
 
-## 🛡️ Proceso de CTI (Cyber Threat Intelligence)
+## 🔬 Resumen del Proceso de Análisis
 
 ### 1. **Verificación Inicial de Hash**
 
