@@ -93,7 +93,7 @@ Comando utilizado para el dump del proceso:
 Una vez extraído el proceso, calculamos el hash MD5 con PowerShell:  
 `Get-FileHash -Algorithm MD5 (path al dump del proceso)`  
 
-<img width="1258" height="209" alt="6" src="https://github.com/user-attachments/assets/54b5084f-327a-4026-a7d4-a52a7b96c67d" />
+<img width="1208" height="218" alt="6" src="https://github.com/user-attachments/assets/c0d5b97b-4e6d-45ef-90b1-5d63173d43cd" />
 
 
 **R:** `0B493D8E26F03CCD2060E0BE85F430AF`
