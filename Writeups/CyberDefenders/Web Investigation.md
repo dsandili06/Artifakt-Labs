@@ -126,7 +126,7 @@ Después de que el atacante inició sesión mandó un POST request en el paquete
 
 ------
 
-## 🛡️ Proceso de CTI (Cyber Threat Intelligence)
+## 🔬 Resumen del Proceso de Análisis
 
 ### 1. **Identificación Inicial del Atacante**
 Filtro: Statistics - Conversations - (Packets)
