@@ -128,7 +128,7 @@ En VT, si nos posicionamos en "Details" y luego buscamos en "Imports" vemos como
 
 
 
-## 🛡️ Proceso de CTI (Cyber Threat Intelligence)
+## 🔬 Resumen del Proceso de Análisis
 
 ### 1. **Verificación Inicial de Hash**
 
