@@ -112,7 +112,7 @@ Tras el dumpeo exitoso del ejecutable, calculamos el hash SHA1:
 
 ------
 
-## 🛡️ Proceso de CTI (Cyber Threat Intelligence)
+## 🔬 Resumen del Proceso de Análisis
 
 ### 1. **Process Enumeration y Behavioral Analysis**
 
