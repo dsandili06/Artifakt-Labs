@@ -177,7 +177,7 @@ Realizando un análisis completo y cronológico del archivo `.bash_history` en `
 
 -----
 
-## 🛡️ Proceso de Análisis y Vista General
+## 🔬 Resumen del Proceso de Análisis
 
 ### 1. **Reconocimiento del Sistema**
 
