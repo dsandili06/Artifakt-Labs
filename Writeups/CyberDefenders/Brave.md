@@ -131,7 +131,7 @@ Comando utilizado:
 
 Aquí aplicamos el plugin `windows.cmdline`, que nos entrega los parámetros con los que fue ejecutado cada proceso. Para limpiar la salida y enfocarnos únicamente en `notepad.exe`, utilizamos nuevamente `Select-String`. De esta manera identificamos que desde la carpeta temporal de Windows (`\Temp\`) se abrió un archivo potencialmente sensible o sospechoso a través de Notepad.  
 Comando utilizado:  
-vol -f (path al dump) windows.cmdline | sls "notepad"`  
+`vol -f (path al dump) windows.cmdline | sls "notepad"`  
 
 <img width="1053" height="86" alt="9" src="https://github.com/user-attachments/assets/ea188541-f0ab-403f-9668-77c624ffced7" />
 
@@ -204,8 +204,8 @@ Con HxD se validó la cadena en el offset solicitado, mientras que UserAssist pe
 
 ## 🔬 Herramientas Utilizadas
 
-
 Memoria
+
 ├── Volatility 3 → windows.info, windows.pslist, windows.netscan, windows.pstree, windows.cmdline, windows.registry.userassist
 
 ├── PowerShell → Get-FileHash para SHA256 y MD5
