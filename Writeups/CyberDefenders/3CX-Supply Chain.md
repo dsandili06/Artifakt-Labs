@@ -152,7 +152,7 @@ Para la atribución del ataque podemos consultar el artículo de Qualys referenc
 
 
 
-## 🛡️ Proceso de CTI (Cyber Threat Intelligence)
+## 🔬 Resumen del Proceso de Análisis
 
 ### 1. **Identificación del Scope del Ataque**
 
