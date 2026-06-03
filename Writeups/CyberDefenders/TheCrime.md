@@ -17,7 +17,7 @@ Cabe recalcar que nunca use ALEAPP, es la primera vez que lo utilice, no revisé
 | Q1 | Based on the accounts of the witnesses and individuals close to the victim, it has become clear that the victim was interested in trading. This has led him to invest all of his money and acquire debt. Can you identify the SHA256 of the trading application the victim primarily used on his phone?
 -
 
-En la sección **Installed Apps (GMS) for user 0** de ALEAPP encontramos el listado completo de aplicaciones instaladas en el dispositivo (5 entradas). Entre ellas, además de múltiples versiones de Discord y YouTube, se identifica una aplicación con Bundle ID `com.ticno.olymptrade`, correspondiente a la plataforma de trading **OlympTrade**. En la columna SHA-256 Hash podemos leer directamente el hash del archivo APK instalado.
+En la sección **Installed Apps (GMS)** de ALEAPP encontramos el listado completo de aplicaciones instaladas en el dispositivo (5 entradas). Entre ellas, se identifica una aplicación con Bundle ID `com.ticno.olymptrade`, correspondiente a la plataforma de trading **OlympTrade**. En la columna SHA-256 Hash podemos leer directamente el hash del archivo APK instalado.
 
 <img width="1919" height="755" alt="1" src="https://github.com/user-attachments/assets/6c9a3577-c232-4679-99e2-4d02e2c3d19e" />
 
@@ -67,7 +67,7 @@ Al revisar la sección **Recent Activity** en ALEAPP, identificamos que la últi
 | Q5 | The detective continued his investigation by questioning the hotel lobby. She informed him that the victim had reserved the room for 10 days and had a flight scheduled thereafter. The investigator believes that the victim may have stored his ticket information on his phone. Look for where the victim intended to travel.
 -
 
-Navegando a la sección **Google Photos (gphotos-1) - Cache** en ALEAPP, encontramos en caché una imagen correspondiente a un boarding pass de **Egypt Airlines**. Este artefacto es especialmente valioso porque persiste en caché aunque el usuario haya eliminado la imagen original de su galería. El ticket muestra todos los detalles del viaje planeado por la víctima: vuelo 310, fecha 01/10/2023, horario 09:00 AM, Gate 08, Seat 20, Origen: Cairo → Destino: **Las Vegas**.
+Navegando a la sección **Google Photos - Cache** en ALEAPP, encontramos en caché una imagen correspondiente a un boarding pass de **Egypt Airlines**. Este artefacto es especialmente valioso porque persiste en caché aunque el usuario haya eliminado la imagen original de su galería. El ticket muestra todos los detalles del viaje planeado por la víctima: vuelo 310, fecha 01/10/2023, horario 09:00 AM, Gate 08, Seat 20, Origen: Cairo → Destino: **Las Vegas**.
 
 
 <img width="1924" height="594" alt="5" src="https://github.com/user-attachments/assets/a907211b-3101-47c9-86c4-c75782014af3" />
