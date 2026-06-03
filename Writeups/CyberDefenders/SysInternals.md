@@ -31,9 +31,9 @@ Archivo ubicado en `C:\\Users\\<USER>\\AppData\\Roaming\\Microsoft\\Windows\\Pow
 | Q1 | What was the malicious executable file name that the user downloaded?
 -
 
-En Autopsy, navegando a la ruta `Users/Public/Downloads`, encontramos el archivo **SysInternals.exe** marcado con una **X roja** indicando que fue eliminado del sistema de archivos (estado Unallocated). El archivo de 57,344 bytes fue creado el `2022-11-15 18:18:51 ART` y su nombre imita deliberadamente la suite legítima de herramientas de Microsoft SysInternals, una técnica clásica de **masquerading** para evadir sospechas del usuario.
+En Autopsy, navegando a la ruta `Users/Public/Downloads`, encontramos el archivo **SysInternals.exe** marcado con una **X roja** indicando que fue eliminado del sistema de archivos (estado Unallocated). Su nombre imita deliberadamente la suite legítima de herramientas de Microsoft SysInternals, una técnica clásica de **masquerading** para evadir sospechas del usuario.
 
-<img width="1919" height="765" alt="1" src="" />
+<img width="1919" height="720" alt="1" src="https://github.com/user-attachments/assets/a15ee811-9280-4d12-b489-71921196507d" />
 
 **R:** `SysInternals.exe`
 
@@ -42,11 +42,13 @@ En Autopsy, navegando a la ruta `Users/Public/Downloads`, encontramos el archivo
 | Q2 | When was the last time the malicious executable file was modified? 12-hour format?
 -
 
-Para obtener el timestamp preciso de última modificación del ejecutable, utilizamos las herramientas de **Eric Zimmerman**: primero `AppCompatCacheParser.exe` para parsear el hive `SYSTEM` del registro, y luego `AmcacheParser.exe` para parsear el `Amcache.hve`. Ambos outputs en formato CSV fueron cargados en **Timeline Explorer** para su análisis. Filtrando por `sysinternals` en el AppCompatCache, encontramos la entrada con `Last Modified Time UTC: 2022-11-15 21:18:51` — que convertido al formato de 12 horas resulta en **06:18:51 PM** (hora local ART, UTC-3).
+Para obtener el timestamp preciso de última modificación del ejecutable, utilizamos las herramientas de **Eric Zimmerman**: primero `AppCompatCacheParser.exe` para parsear el hive `SYSTEM` del registro. 
 
-<img width="1919" height="765" alt="2" src="" />
+<img width="1919" height="191" alt="2" src="https://github.com/user-attachments/assets/61070feb-b6fb-4d19-823b-34713e5f89d3" />
 
-<img width="1919" height="765" alt="2 1" src="" />
+El output '.csv' fue cargado en **Timeline Explorer** para su análisis. Filtrando por `sysinternals` en el AppCompatCache, encontramos la entrada con `Last Modified Time UTC: 2022-11-15 21:18:51`.
+
+<img width="1919" height="220" alt="2 1" src="https://github.com/user-attachments/assets/863dad4b-d362-455f-88be-afd14c0d575e" />
 
 **R:** `11/15/2022 6:18:51 PM`
 
@@ -55,11 +57,14 @@ Para obtener el timestamp preciso de última modificación del ejecutable, utili
 | Q3 | What is the SHA1 hash value of the malware?
 -
 
-El **Amcache**, a diferencia del AppCompatCache, registra el hash SHA1 real del ejecutable al momento de su primera ejecución. Cargando el CSV generado por `AmcacheParser.exe` en Timeline Explorer y filtrando por `sysinternals`, encontramos la entrada correspondiente a `c:\\users\\public\\downloads\\sysinternals.exe` con su hash SHA1 completo.
+El **Amcache**, a diferencia del AppCompatCache, registra el hash SHA1 real del ejecutable al momento de su primera ejecución. 
 
-<img width="1919" height="765" alt="3" src="" />
+<img width="1900" height="288" alt="3" src="https://github.com/user-attachments/assets/2710dc9a-9474-4378-81d5-70d69cab5b2f" />
 
-<img width="1919" height="765" alt="3 1" src="" />
+Cargando el CSV generado por `AmcacheParser.exe` en Timeline Explorer y filtrando por `sysinternals`, encontramos la entrada correspondiente a `c:\\users\\public\\downloads\\sysinternals.exe` con su hash SHA1 completo.
+
+<img width="1919" height="407" alt="3 1" src="https://github.com/user-attachments/assets/888d6ec3-e5d4-42d9-8a60-338c26a781d0" />
+
 
 **R:** `fa1002b02fc5551e075ec44bb4ff9cc13d563dcf`
 
@@ -68,22 +73,20 @@ El **Amcache**, a diferencia del AppCompatCache, registra el hash SHA1 real del 
 | Q4 | What is the malware's family?
 -
 
-Buscando el hash MD5 del ejecutable `72e6d1728a546c2f3ee32c063ed09fa6ba8c46ac33b0dd2e354087c1ad26ef48` en **VirusTotal**, el análisis muestra que **51 de 70** vendors lo clasifican como malicioso. En la sección **Detection**, el campo *Popular threat label* indica `trojan.jaik/deyma` y los *Family labels* listados son `jaik`, `deyma` y `genericrxvh`. El vendor **Alibaba** lo detecta como `Downloader:Win32/Rozena.cadb0acb`, lo que aporta contexto adicional sobre su capacidad como downloader.
+Buscando el hash MD5 del ejecutable `72e6d1728a546c2f3ee32c063ed09fa6ba8c46ac33b0dd2e354087c1ad26ef48` en **VirusTotal**, el análisis muestra que **51 de 70** vendors lo clasifican como malicioso. En la sección **Detection** el vendor **Alibaba** lo detecta como `Downloader:Win32/Rozena.cadb0acb`.
 
-<img width="1919" height="765" alt="4" src="" />
+<img width="1919" height="838" alt="4" src="https://github.com/user-attachments/assets/d941a351-1af6-430b-8691-73a7cdf0cbb0" />
 
-**R:** `deyma`
+**R:** `Rozena`
 
 ------
 
 | Q5 | What is the first mapped domain's Fully Qualified Domain Name (FQDN)?
 -
 
-El análisis se realizó en dos niveles complementarios. Primero, en **VirusTotal** sección **Relations**, vemos que el malware contactó la URL `http://www.malware430.com/html/VMwareUpdate.exe`. Segundo, y más importante desde el punto de vista forense del host, en **Autopsy** navegamos al archivo `ConsoleHost_history.txt` ubicado en `IEUser\\AppData\\Roaming\\Microsoft\\Windows\\PowerShell\\PSReadLine\\`. Este historial de PowerShell contiene el comando: `Add-Content -Path $env:windir\\System32\\drivers\\etc\\hosts -Value "192.168.15.10 www.malware430.com" -Force`, revelando que el malware **modificó el archivo hosts** para mapear el dominio malicioso a una IP interna, técnica de DNS hijacking local para redirigir tráfico o evadir detección.
+El análisis se realizó en dos niveles complementarios. Primero, en **VirusTotal** sección **Relations**, vemos que el malware contactó la URL `http://www.malware430.com/html/VMwareUpdate.exe`. 
 
-<img width="1919" height="765" alt="5" src="" />
-
-<img width="1919" height="765" alt="6" src="" />
+<img width="1896" height="620" alt="5" src="https://github.com/user-attachments/assets/9b252670-24ba-4c2d-aa6f-29608e4c734d" />
 
 **R:** `www.malware430.com`
 
@@ -91,10 +94,13 @@ El análisis se realizó en dos niveles complementarios. Primero, en **VirusTota
 
 | Q6 | The mapped domain is linked to an IP address. What is that IP address?
 -
+Desde el punto de vista forense del host, en **Autopsy** navegamos al archivo `ConsoleHost_history.txt` ubicado en `IEUser\AppData\Roaming\Microsoft\Windows\PowerShell\PSReadLine\`. Este historial de PowerShell contiene el comando: `Add-Content -Path $env:windir\\System32\\drivers\\etc\\hosts -Value "192.168.15.10 www.malware430.com" -Force`, revelando que el malware **modificó el archivo hosts** para mapear el dominio malicioso a una IP interna, técnica de DNS hijacking local para redirigir tráfico o evadir detección.
 
-Retomando el historial de PowerShell analizado en la pregunta anterior, el mismo comando `Add-Content` que mapea el dominio en el archivo `hosts` especifica explícitamente la dirección IP asociada: `192.168.15.10`. Esta IP privada fue mapeada tanto a `www.malware430.com` como a `www.sysinternals.com`, lo que sugiere que el atacante buscaba interceptar conexiones legítimas a SysInternals para redirigirlas a su infraestructura.
+<img width="1919" height="813" alt="6" src="https://github.com/user-attachments/assets/82684056-3481-4042-ac34-e722ba27cb83" />
 
-<img width="1919" height="765" alt="6" src="" />
+
+El mismo comando `Add-Content` que mapea el dominio en el archivo `hosts` especifica explícitamente la dirección IP asociada: `192.168.15.10`. Esta IP privada fue mapeada tanto a `www.malware430.com` como a `www.sysinternals.com`, lo que sugiere que el atacante buscaba interceptar conexiones legítimas a SysInternals para redirigirlas a su infraestructura.
+
 
 **R:** `192.168.15.10`
 
@@ -103,9 +109,9 @@ Retomando el historial de PowerShell analizado en la pregunta anterior, el mismo
 | Q7 | What is the name of the executable dropped by the first-stage executable?
 -
 
-En **VirusTotal**, sección **Behavior** (Process Tree), observamos la cadena de ejecución completa del malware. El ejecutable `SysInternals.exe` (PID 2472, `%SAMPLEPATH%`) lanza como proceso hijo (PID 2656): `"%ComSpec%" /C %windir%\\vmtoolsIO.exe -install && net start VMwareIOHelperService && sc config VMwareIOHelperService start= auto`. Esto confirma que `SysInternals.exe` descarga y coloca `vmtoolsIO.exe` en `C:\\Windows\\`, enmascáralo como una herramienta legítima de VMware.
+En **VirusTotal**, sección **Behavior** (Process Tree), observamos la cadena de ejecución completa del malware. El ejecutable `SysInternals.exe` lanza como proceso: `"%ComSpec%" /C %windir%\\vmtoolsIO.exe -install && net start VMwareIOHelperService && sc config VMwareIOHelperService start= auto`. Esto confirma que `SysInternals.exe` descarga y coloca `vmtoolsIO.exe` en `C:\Windows\`, simulando como si fuese una herramienta legítima de VMware.
 
-<img width="1919" height="765" alt="7-y-8" src="" />
+<img width="1919" height="400" alt="7 y 8" src="https://github.com/user-attachments/assets/dc32d486-052f-4f41-9325-2f66b695beb6" />
 
 **R:** `vmtoolsIO.exe`
 
@@ -114,9 +120,8 @@ En **VirusTotal**, sección **Behavior** (Process Tree), observamos la cadena de
 | Q8 | What is the name of the service installed by 2nd stage executable?
 -
 
-Continuando el análisis del árbol de procesos de la captura anterior, el mismo comando ejecutado por el segundo stage instala un servicio de Windows mediante `sc config VMwareIOHelperService start= auto` combinado con `net start VMwareIOHelperService`. El servicio se establece con inicio automático (`start= auto`), asegurando **persistencia** en el sistema incluso tras reinicios. El nombre del servicio imita deliberadamente un componente legítimo de VMware Tools para pasar desapercibido.
+Continuando el análisis del árbol de procesos de la captura anterior, el mismo comando ejecutado por el segundo stage instala un servicio de Windows mediante `sc config VMwareIOHelperService start= auto`, el nombre del servicio imita un componente legítimo de VMware Tools.
 
-<img width="1919" height="765" alt="7-y-8" src="" />
 
 **R:** `VMwareIOHelperService`
 
