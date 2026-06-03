@@ -5,9 +5,10 @@
 **Contexto**: Una víctima ha desaparecido bajo circunstancias sospechosas. Las autoridades han adquirido una imagen forense de su dispositivo Android y solicitan al equipo de DFIR un análisis exhaustivo para reconstruir su actividad reciente, identificar sus deudas, ubicación y planes de viaje que permitan determinar el móvil del crimen.  
 **Objetivo**: Analizar la imagen forense del dispositivo Android con ALEAPP para extraer artefactos de aplicaciones instaladas, historial de llamadas, mensajes, caché de fotos y conversaciones de Discord que permitan reconstruir la línea temporal de la víctima.  
 **Herramientas**: ALEAPP.  
-**Tácticas**: Collection | Discovery.
 
 El laboratorio provee una imagen forense de un dispositivo Android para análisis con ALEAPP.
+
+Cabe recalcar que nunca use ALEAPP, es la primera vez que lo utilice, no revisé documentación ni nada parecido, bastante intuitiva la interfaz de inyección de evidencia y el output en formato web me pareció tremendo.
 
 ---
 
