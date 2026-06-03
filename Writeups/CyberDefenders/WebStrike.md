@@ -103,6 +103,19 @@ MITRE: T1505.003 - Web Shell | T1059.004 - Unix Shell | T1041 - Exfiltration Ove
 
 ***
 
+## 🎯 MITRE ATT&CK Mapping
+
+| Táctica | Técnica | ID | Descripción Observada |
+|---------|---------|----|-----------------------|
+| Initial Access | Exploit Public-Facing Application | T1190 | Explotación del endpoint `/reviews/upload.php` en shoporoma.com |
+| Defense Evasion | Masquerading: Double File Extension | T1036.007 | Archivo `image.jpg.php` con doble extensión para evadir validación del servidor |
+| Persistence | Server Software Component: Web Shell | T1505.003 | Upload exitoso de webshell PHP con reverse shell embebido |
+| Execution | Command and Scripting Interpreter: Unix Shell | T1059.004 | Reverse shell ejecutado via `/bin/sh` a través del webshell |
+| Command and Control | Non-Standard Port | T1571 | Comunicación C2 establecida sobre puerto 8080 via Netcat |
+| Exfiltration | Exfiltration Over C2 Channel | T1041 | `curl -X POST -d /etc/passwd` enviado al servidor del atacante |
+
+***
+
 ## 🔬 Herramientas Utilizadas
 
 Análisis de Red
