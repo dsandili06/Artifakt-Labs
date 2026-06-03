@@ -7,7 +7,7 @@
 **Herramientas**: Autopsy, AppCompatCacheParser (Eric Zimmerman), AmcacheParser (Eric Zimmerman), Timeline Explorer (Eric Zimmerman), VirusTotal.  
 **Tácticas**: Initial Access | Execution | Persistence | Defense Evasion | Command and Control.
 
-Este laboratorio de dificultad **Medium** requirió investigar artefactos forenses de Windows que no son de conocimiento inmediato: el **Amcache**, el **AppCompatCache** y el **historial de comandos de PowerShell**. A continuación se detalla tanto el proceso de análisis como los conceptos aprendidos durante la resolución.
+Este laboratorio de dificultad **Medium** requirió investigar y aprender sobre artefactos forenses de Windows que no los conocía realmente: el **Amcache**, el **AppCompatCache** y el **historial de comandos de PowerShell**. A continuación se detalla tanto el proceso de análisis como los conceptos aprendidos durante la resolución.
 
 ---
 
