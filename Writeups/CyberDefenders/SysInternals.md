@@ -175,7 +175,7 @@ SysInternals.exe (1st stage)
 
 └── Drops: C:\\Windows\\vmtoolsIO.exe (2nd stage)
 
-    └── Instala servicio: VMwareIOHelperService (start=auto → persistencia)
+└── Instala servicio: VMwareIOHelperService (start=auto → persistencia)
 
 ---
 
@@ -194,11 +194,11 @@ SysInternals.exe (1st stage)
 
 ## 🔬 Herramientas Utilizadas
 
-🔍 Análisis de Imagen Forense
+  Análisis de Imagen Forense
 
-├── Autopsy → File system browsing, deleted file recovery, PSReadLine history extraction
+├── Autopsy → File system browsing y PSReadLine history extraction
 
-🔍 Parseo de Artefactos de Registro (Eric Zimmerman Tools)
+  Parseo de Artefactos de Registro (Eric Zimmerman Tools)
 
 ├── AppCompatCacheParser.exe → Parseo de ShimCache desde hive SYSTEM
 
@@ -206,7 +206,7 @@ SysInternals.exe (1st stage)
 
 └── Timeline Explorer → Visualización y filtrado de CSVs generados
 
-🔍 Análisis de Malware
+  Análisis de Malware
 
 └── VirusTotal → Reputación por hash, Process Tree, Contacted URLs, Family labels
 
