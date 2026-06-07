@@ -22,7 +22,7 @@ Al revisar la lista inicialmente no vemos procesos potencialmente maliciosos evi
 
 `python3 vol.py -f (PATH al dump) Windows.cmdline`  
 
-![cmdline output](./assets/RamnIt/222.png)
+<img width="1361" height="606" alt="1" src="https://github.com/user-attachments/assets/87f3e5ae-5851-40d0-a420-143e9a8b520d" />
 
 Aquí podemos observar claramente una línea de comando sospechosa: **ChromeSetup.exe**. Este comportamiento es anómalo ya que un instalador legítimo de Chrome se cierra automáticamente tras completar la instalación, no permanece activo en el sistema. Con este criterio podemos responder tanto la primera como la segunda pregunta del laboratorio.  
 
@@ -46,7 +46,7 @@ Path del proceso malicioso confirmado desde los flags de cmdline en Volatility.
 
 `python3 vol.py -f (PATH al dump) Windows.netscan | grep -i "4628"`  
 
-![netscan output PID 4628](./assets/RamnIt/Screenshot_2026-03-14_16_19_13.png)
+<img width="1360" height="170" alt="2" src="https://github.com/user-attachments/assets/d5ef71aa-316d-4d24-ac18-8bab4c51c19e" />
 
 **R:** `58.64.204.181`
 
@@ -57,7 +57,8 @@ Path del proceso malicioso confirmado desde los flags de cmdline en Volatility.
 
 **Para geolocalizar la IP maliciosa recurrimos a plataformas como geodatatool, VirusTotal, WhatIsMyIPAddress**, entre otras herramientas de inteligencia de IP. 
 
-![IP geolocation Hong Kong](./assets/RamnIt/Screenshot_2026-03-14_16_21_14.png)
+
+<img width="1360" height="528" alt="3" src="https://github.com/user-attachments/assets/f5170c7a-95cc-42f6-b15b-4aca0b75bba6" />
 
 **R:** `Hong Kong`
 
@@ -70,7 +71,8 @@ Path del proceso malicioso confirmado desde los flags de cmdline en Volatility.
 
 `python3 vol.py -f (PATH al dump) Windows.dumpfiles --pid 4628`  
 
-![dumpfiles output](./assets/RamnIt/Screenshot_2026-03-14_16_37_39.png)
+
+<img width="1360" height="176" alt="4" src="https://github.com/user-attachments/assets/d7196ff7-4640-40e5-8637-52d2c97c1347" />
 
 Tras el dumpeo exitoso del ejecutable, calculamos el hash SHA1:  
 
@@ -85,7 +87,8 @@ Tras el dumpeo exitoso del ejecutable, calculamos el hash SHA1:
 
 **Realizamos análisis de Threat Intelligence en VirusTotal** ingresando el hash SHA1 extraído. En el apartado "Details" de la muestra identificamos la fecha de compilación del malware. 
 
-![VirusTotal compilation timestamp](./assets/RamnIt/Screenshot_2026-03-14_16_42_04.png)
+
+<img width="1360" height="643" alt="5" src="https://github.com/user-attachments/assets/47526e6d-9209-42d5-9660-34e5bca999e1" />
 
 **R:** `2019-12-01 08:36`
 
@@ -96,7 +99,7 @@ Tras el dumpeo exitoso del ejecutable, calculamos el hash SHA1:
 
 **En VirusTotal navegamos al apartado "Relations"** de la muestra analizada. En la sección "Contacted Domains" identificamos el dominio C2 asociado al malware.  
 
-![VirusTotal contacted domains](./assets/RamnIt/Screenshot_2026-03-14_16_43_21.png)
+<img width="1360" height="526" alt="6" src="https://github.com/user-attachments/assets/b70b9fe7-a0c8-4b37-bf34-070b57b39d95" />
 
 **R:** `dnsnb8.net`
 
