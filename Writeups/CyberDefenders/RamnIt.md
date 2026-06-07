@@ -22,9 +22,7 @@ Al revisar la lista inicialmente no vemos procesos potencialmente maliciosos evi
 
 `python3 vol.py -f (PATH al dump) Windows.cmdline`  
 
-![image alt](https://github.com/santis6/SOC-Practitioner-Labs/blob/a84ba7df59a89dac99516a0c3300307227b60f67/222.png)
-
-
+![cmdline output](./assets/RamnIt/222.png)
 
 Aquí podemos observar claramente una línea de comando sospechosa: **ChromeSetup.exe**. Este comportamiento es anómalo ya que un instalador legítimo de Chrome se cierra automáticamente tras completar la instalación, no permanece activo en el sistema. Con este criterio podemos responder tanto la primera como la segunda pregunta del laboratorio.  
 
@@ -48,8 +46,7 @@ Path del proceso malicioso confirmado desde los flags de cmdline en Volatility.
 
 `python3 vol.py -f (PATH al dump) Windows.netscan | grep -i "4628"`  
 
-![image alt](https://github.com/santis6/SOC-Practitioner-Labs/blob/d8b2e4c99556308e9b398a666b613c8a4e1a8f99/Screenshot_2026-03-14_16_19_13.png)
-
+![netscan output PID 4628](./assets/RamnIt/Screenshot_2026-03-14_16_19_13.png)
 
 **R:** `58.64.204.181`
 
@@ -60,8 +57,7 @@ Path del proceso malicioso confirmado desde los flags de cmdline en Volatility.
 
 **Para geolocalizar la IP maliciosa recurrimos a plataformas como geodatatool, VirusTotal, WhatIsMyIPAddress**, entre otras herramientas de inteligencia de IP. 
 
-![image alt](https://github.com/santis6/SOC-Practitioner-Labs/blob/d8b2e4c99556308e9b398a666b613c8a4e1a8f99/Screenshot_2026-03-14_16_21_14.png)
-
+![IP geolocation Hong Kong](./assets/RamnIt/Screenshot_2026-03-14_16_21_14.png)
 
 **R:** `Hong Kong`
 
@@ -74,8 +70,7 @@ Path del proceso malicioso confirmado desde los flags de cmdline en Volatility.
 
 `python3 vol.py -f (PATH al dump) Windows.dumpfiles --pid 4628`  
 
-![image alt](https://github.com/santis6/SOC-Practitioner-Labs/blob/d8b2e4c99556308e9b398a666b613c8a4e1a8f99/Screenshot_2026-03-14_16_37_39.png)
-
+![dumpfiles output](./assets/RamnIt/Screenshot_2026-03-14_16_37_39.png)
 
 Tras el dumpeo exitoso del ejecutable, calculamos el hash SHA1:  
 
@@ -90,9 +85,7 @@ Tras el dumpeo exitoso del ejecutable, calculamos el hash SHA1:
 
 **Realizamos análisis de Threat Intelligence en VirusTotal** ingresando el hash SHA1 extraído. En el apartado "Details" de la muestra identificamos la fecha de compilación del malware. 
 
-
-![image alt](https://github.com/santis6/SOC-Practitioner-Labs/blob/d8b2e4c99556308e9b398a666b613c8a4e1a8f99/Screenshot_2026-03-14_16_42_04.png)
-
+![VirusTotal compilation timestamp](./assets/RamnIt/Screenshot_2026-03-14_16_42_04.png)
 
 **R:** `2019-12-01 08:36`
 
@@ -103,10 +96,7 @@ Tras el dumpeo exitoso del ejecutable, calculamos el hash SHA1:
 
 **En VirusTotal navegamos al apartado "Relations"** de la muestra analizada. En la sección "Contacted Domains" identificamos el dominio C2 asociado al malware.  
 
-
-![image alt](https://github.com/santis6/SOC-Practitioner-Labs/blob/d8b2e4c99556308e9b398a666b613c8a4e1a8f99/Screenshot_2026-03-14_16_43_21.png)
-
-
+![VirusTotal contacted domains](./assets/RamnIt/Screenshot_2026-03-14_16_43_21.png)
 
 **R:** `dnsnb8.net`
 
@@ -114,72 +104,60 @@ Tras el dumpeo exitoso del ejecutable, calculamos el hash SHA1:
 
 ## 🔬 Resumen del Proceso de Análisis
 
-### 1. **Process Enumeration y Behavioral Analysis**
+### 1. Process Enumeration y Behavioral Analysis
 
-python3 vol.py -f dump.mem Windows.pslist → Process baseline
-
-python3 vol.py -f dump.mem Windows.cmdline → ChromeSetup.exe (PID 4628) persistente
-
+```
+python3 vol.py -f dump.mem Windows.pslist   → Process baseline
+python3 vol.py -f dump.mem Windows.cmdline  → ChromeSetup.exe (PID 4628) persistente
 Razón: Installers legítimos auto-cierran post-instalación
+```
 
+### 2. Network IOC Extraction
 
-
-### 2. **Network IOC Extraction**
+```
 python3 vol.py -f dump.mem Windows.netscan | grep 4628
-
 → C2 IP: 58.64.204.181 (Hong Kong)
+Geolocalizáción confirmada via GeoDataTool
+```
 
-Geolocalización confirmada via GeoDataTool
+### 3. Malware Sample Recovery
 
-
-
-### 3. **Malware Sample Recovery**
-
+```
 python3 vol.py -f dump.mem Windows.dumpfiles --pid 4628
-
 → ChromeSetup.exe.img extraído exitosamente
-
 SHA1: 280c9d36039f9432433893dee6126d72b9112ad2
+```
 
+### 4. Threat Intelligence Enrichment
 
-
-### 4. **Threat Intelligence Enrichment**
-
+```
 VirusTotal Analysis:
-
 ├── Compilation: 2019-12-01 08:36
-
 ├── C2 Domain: dnsnb8.net (Relations → Contacted Domains)
-
 └── Family: Ramnit (comportamiento + IOCs)
-
-
+```
 
 ## 🔬 Herramientas Utilizadas
 
- Memoria Forense
-
+**Memoria Forense**
+```
 ├── Volatility 3 → pslist, cmdline, netscan, dumpfiles
-
 └── sha1sum → Hash calculation
+```
 
- Threat Intelligence
-
+**Threat Intelligence**
+```
 ├── VirusTotal → Sample analysis, timestamps, domains
-
 └── WhatIsMyIPAddress → IP geolocation
-
-
+```
 
 ## 📊 Lecciones Aprendidas
 
 1. **Process Hunting**: `Windows.cmdline` > `pslist` para detectar persistence anómalo.
-   
 2. **PID Correlation**: Siempre filtrar netscan por PID sospechoso (`grep -i "PID"`).
-   
 3. **Memory Forensics Workflow**: Dump → Hash → VT Enrichment = IOCs accionables.
 
 ---
 
-> **Santiago Daniel Sandili** – SOC Analyst L1 Portfolio  
+> **Santiago Daniel Sandili** – SOC Analyst Jr. | Blue Team · DFIR  
 > *CyberDefenders Blue Team Lab: Ramnit (Endpoint Forensics Category)*
