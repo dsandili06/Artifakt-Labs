@@ -188,11 +188,9 @@ Encryption: RC4 para ofuscación del payload malicioso
 
 ### 4. **Threat Intelligence y Atribución**
 
-MITRE Mapping: T1574 (Side-Loading) + T1497 (Sandbox Evasion)
+APT Group: Lazarus Group
 
-APT Group: Lazarus Group (DPRK-linked)
-
-Fuentes: VirusTotal Community, Qualys Threat Report
+Fuentes: VirusTotal, Qualys Threat Report
 
 
 
@@ -213,7 +211,6 @@ Fuentes: VirusTotal Community, Qualys Threat Report
 
 ├── VirusTotal → Hash analysis, dropped files, behavior, community
 
-├── PowerShell → SHA256 extraction (Get-FileHash)
 
 └── Qualys Threat Report → MITRE TID Mapping, APT attribution
 
@@ -222,10 +219,8 @@ Fuentes: VirusTotal Community, Qualys Threat Report
 ## 📊 Lecciones Aprendidas
 
 1. **Supply Chain Awareness**: Validar integridad de instaladores legítimos con hash verification antes de cualquier deployment organizacional.
-   
-2. **DLL Side-Loading Detection**: Monitorear DLLs cargadas por procesos confiables contra un baseline conocido y verificado.
   
-3. **APT Attribution Value**: Identificar el grupo responsable (Lazarus) permite anticipar TTPs adicionales y buscar proactivamente IOCs relacionados en la red.
+2. **APT Attribution Value**: Identificar el grupo responsable (Lazarus) permite anticipar TTPs adicionales y buscar proactivamente IOCs relacionados en la red.
 
 ---
 
